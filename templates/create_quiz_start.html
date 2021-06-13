@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container mx-4 my-5">
+    <span class="text-center" style="color: white;"><h1>Create a new quiz</h1></span>
+
+
+    <h3>Quiz Id: {{new_quiz_id}}</h3>
+    <form action="{% url 'create_quiz' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="quiz_id" value="{{new_quiz_id}}">
+
+        <h3>Add Quiz title</h3>
+        <input type="text" name="quiz_title">
+
+        <h3>Add a cover image</h3>
+        <input type="file" name='cover_img'>
+
+        <h3>enter number of questions</h3>
+        <input type="text" name='no_of_ques'>
+
+        <br>
+        <br>
+        <br>
+        <input type="submit" value="Submit Quiz">
+
+
+
+    </form>
+
+
+
+
+</div>
+{% endblock content %}
