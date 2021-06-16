@@ -1,4 +1,12 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block custom_css %}
+
+<style>
+    .col {
+        height: 266px !important;
+    }
+</style>
+
+{% endblock custom_css %} {% block content %}
 <div class="container text-center">
 
     <h1 class="quizzly heading my-3">Welcome to the quizzly app</h1>
@@ -23,7 +31,7 @@
 
 
     <div class="container px-4 py-5" id="custom-cards">
-        <h2 class="pb-2 border-bottom">Custom cards</h2>
+        <h2 class="pb-2 border-bottom" align='left'>Quizzes</h2>
 
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 

@@ -112,6 +112,9 @@ def dashboard(request):
 
 
 def test_site(request):
+    if request.method=='POST':
+        print('jhhvwieuckwljkcnlehoi')
+        return redirect('home')
     return render(request,'test_site.html')
 
 

@@ -9,8 +9,79 @@
 </head>
 
 <body>
-    this is a test site {{user.is_authenticated}}
-    {% comment %} <a href="{% url 'room' varun %}">chatroom</a> {% endcomment %}
+    <form action="{% url 'test_site' %}" method='POST' id="js_post">
+        {% csrf_token %}
+
+
+    </form>
+    <button id="add_ques">Add question</button>
+
+    <button id='submit_this'>Submit</button>
+
+    <script>
+        no_of_questions = 0
+        submit_but = document.getElementById('submit_this')
+        form = document.getElementById('js_post')
+        add_ques = document.getElementById('add_ques')
+
+
+
+
+
+        add_ques.addEventListener('click', () => {
+            no_of_questions += 1;
+            // console.log('add is working')
+            show_ques(no_of_questions);
+        })
+
+
+        function show_ques(no_of_ques) {
+            form_content = ''
+            var i
+            for (i = 0; i < no_of_ques; i++) {
+                form_content += `<h2>question no ${i+1}</h2> 
+                <butto onclick="delete_ques(this.id)">Delete this </butto>
+                <input type="text" name="problem-{{ques}}">
+                
+                <h3>option A</h3>
+                <input type="text" name="question-{{ques}}-option-1">
+                <h3>option B</h3>
+                <input type="text" name="question-{{ques}}-option-2">
+                <h3>option C</h3>
+                <input type="text" name="question-{{ques}}-option-3">
+                <h3>option D</h3>
+                <input type="text" name="question-{{ques}}-option-4">
+                <h3>option E</h3>
+                <input type="text" name="question-{{ques}}-option-5" value="Can ignore this">
+                <h3>correct answer (write A,B,C,D)</h3>
+                A<input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="A" style="margin-right: 50px;" /> B
+                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="B" style="margin-right: 50px;" /> C
+                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="C" style="margin-right: 50px;" /> D
+                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="D" style="margin-right: 50px;" /> E
+                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="E" style="margin-right: 50px;" />
+                
+                <br>`
+
+                form.innerHTML = form_content;
+            }
+        }
+
+
+        function delete_ques(index) {
+            console.log(index)
+
+        }
+
+
+
+
+
+        submit_but.addEventListener('click', () => {
+            form.submit()
+        })
+    </script>
+
+
 </body>
 
 </html>

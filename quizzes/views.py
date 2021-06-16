@@ -91,8 +91,10 @@ def create_quiz(request):
         quiz_title=request.POST.get('quiz_title')
         cover_img=request.FILES.get('cover_img')
         no_of_ques=request.POST.get('no_of_ques')
-        print(cover_img)
+        print(cover_img,'wevwrvwefwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
         # print(Quiz.objects.values_list('id',flat=True))
+        if cover_img==None:
+            cover_img='../media/aaaaaaa.jpeg'
         quiz=Quiz(quiz_id=new_quiz_id,quiz_title=quiz_title,cover_img=cover_img,created_by=request.user.id)
 
         quiz.save()
