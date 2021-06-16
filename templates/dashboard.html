@@ -188,7 +188,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Score</th>
-                <!-- <th scope="col">Price</th> -->
+                <th scope="col"></th>
                 <!-- <th scope="col">Action</th> -->
             </tr>
         </thead>
@@ -199,8 +199,8 @@
                 <th scope="row">{{quiz.quiz_id}}</th>
                 <td>{{quiz.quiz_title}}</td>
                 <td>nothing</td>
+                <td><a href="{% url 'view_questions' quiz.quiz_id %}">Edit</a></td> 
                 {% comment %}
-                <td>$25000</td> {% endcomment %} {% comment %}
                 <td><a href="/cars/{{enquiry.car_id}}" class="btn btn-outline-dark">View Car</a></td> {% endcomment %}
             </tr>
             {% endfor %}

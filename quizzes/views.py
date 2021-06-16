@@ -132,3 +132,21 @@ def create_questions(request,quiz_id,no_of_ques):
 
 
     return render(request,'create_questions.html',data)
+
+
+
+
+
+
+
+
+
+def view_questions(request,quiz_id):
+    all_questions=Question.objects.filter(quiz_id=quiz_id)
+    print(quiz_id,all_questions,'wrvrgkbh3jkwbkuhbiubjkjbmbkbkjbjkbkbjb,mbkkjbkbjh')
+    
+    
+    data={
+        'all_questions':all_questions,
+    }
+    return render(request,'view_questions.html',data)
