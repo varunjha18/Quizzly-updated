@@ -4,6 +4,7 @@ from quizzes.models import Question
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User
 from leaderboard.models import Score
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -72,7 +73,7 @@ def question(request,quiz_id):
     return render(request,"questions.html",data)
 
 
-
+@login_required(login_url='login')
 def create_quiz(request):
     new_quiz_id=max(Quiz.objects.values_list('id',flat=True))+1
     if request.method=="POST":
@@ -92,7 +93,7 @@ def create_quiz(request):
         no_of_ques=request.POST.get('no_of_ques')
         print(cover_img)
         # print(Quiz.objects.values_list('id',flat=True))
-        quiz=Quiz(quiz_id=new_quiz_id,quiz_title=quiz_title,cover_img=cover_img)
+        quiz=Quiz(quiz_id=new_quiz_id,quiz_title=quiz_title,cover_img=cover_img,created_by=request.user.id)
 
         quiz.save()
         # data={'no_of_ques' : range(int(no_of_ques)) }

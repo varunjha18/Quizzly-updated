@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages,auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from quizzes.models import Quiz
 
 # Create your views here.
 def login(request):
@@ -87,6 +88,8 @@ def logout(request):
 def dashboard(request):
     user_id=request.user.id
     this_user=get_object_or_404(User_profile,user_id=user_id)
+    quizzes_by_user=Quiz.objects.filter(created_by=user_id)
+    
     # print('hhhhhhhhhheeeeeeeeeeeeeeerrrrrrrrrrrrrrrrreeeeeeeeeeeeeeeee')
     # print(user)
     if request.method=='POST':
@@ -101,7 +104,9 @@ def dashboard(request):
         # print(request.FILES.get('profile_img'))
         this_user.save()
 
-    data={'user':this_user,}
+    data={'user':this_user,
+    'quizzes_by_user' :quizzes_by_user,
+    }
     # print(User.is_authenticated)
     return render(request,'dashboard.html',data)
 

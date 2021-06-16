@@ -1,6 +1,10 @@
 {% extends 'base.html' %} {% block custom_css %}
 
 <style>
+    body {
+        color: white;
+    }
+    
     .dashboard {
         display: flex;
     }
@@ -171,5 +175,48 @@
 
 
 </div>
+<br><br>
 
-{% endblock content %} {% block custom_js %} update_profile_button=document.getElementById("update_profile_button"); {% endblock custom_js %}
+
+<div class="container">
+    <h2>Your Quizzes</h2>
+    {% if quizzes_by_user %}
+    
+    <table class="table table-hover" style="color: white;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Score</th>
+                <!-- <th scope="col">Price</th> -->
+                <!-- <th scope="col">Action</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz in quizzes_by_user %}
+            <tr style="color: white;">
+
+                <th scope="row">{{quiz.quiz_id}}</th>
+                <td>{{quiz.quiz_title}}</td>
+                <td>nothing</td>
+                {% comment %}
+                <td>$25000</td> {% endcomment %} {% comment %}
+                <td><a href="/cars/{{enquiry.car_id}}" class="btn btn-outline-dark">View Car</a></td> {% endcomment %}
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endif %}
+</div>
+
+
+
+
+
+{% endblock content %} {% block custom_js %}
+<script>
+    update_profile_button = document.getElementById("update_profile_button");
+</script>
+{% endblock custom_js %}

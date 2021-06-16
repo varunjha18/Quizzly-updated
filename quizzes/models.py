@@ -38,7 +38,11 @@ class Quiz(models.Model):
     quiz_id=models.IntegerField()
     quiz_title=models.CharField(max_length=200)
     cover_img=models.ImageField(upload_to="photos/%y/%m/",blank=True,default='aaaaaaa.jpeg')
+    created_by=models.IntegerField(default=1)
     is_public=models.BooleanField(default=True)
+
+
+
 
     def __str__(self):
         return str(self.quiz_id)
