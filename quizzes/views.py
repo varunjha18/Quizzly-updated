@@ -143,10 +143,20 @@ def create_questions(request,quiz_id,no_of_ques):
 
 def view_questions(request,quiz_id):
     all_questions=Question.objects.filter(quiz_id=quiz_id)
-    print(quiz_id,all_questions,'wrvrgkbh3jkwbkuhbiubjkjbmbkbkjbjkbkbjb,mbkkjbkbjh')
-    
+       
     
     data={
         'all_questions':all_questions,
+        'quiz_id':quiz_id,
     }
     return render(request,'view_questions.html',data)
+
+
+def edit_question(request,quiz_id,question_no):
+    if request.method=='POST':
+        print(request.POST.get('problem','nope'),'wewnevkjwbevw,vejw,evw,vwj,')
+    
+    question=get_object_or_404(Question,quiz_id=quiz_id,question_no=question_no)
+    data={'question':question}
+
+    return render(request,'edit_question.html',data)

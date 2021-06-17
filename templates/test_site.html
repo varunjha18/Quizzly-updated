@@ -1,87 +1,139 @@
-<!DOCTYPE html>
+{% load static %}
+
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+
+    <!-- Apply your custom CSS in this block -->
+
+    {% block custom_css %}{% endblock custom_css %}
+    <!-- Apply your custom CSS in this block -->
+
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <title>Quizzly</title>
 </head>
 
-<body>
-    <form action="{% url 'test_site' %}" method='POST' id="js_post">
-        {% csrf_token %}
 
 
-    </form>
-    <button id="add_ques">Add question</button>
-
-    <button id='submit_this'>Submit</button>
-
-    <script>
-        no_of_questions = 0
-        submit_but = document.getElementById('submit_this')
-        form = document.getElementById('js_post')
-        add_ques = document.getElementById('add_ques')
+<body style='background: linear-gradient(to right, black, rgb(20, 20, 20));color: white;'>
 
 
 
 
 
-        add_ques.addEventListener('click', () => {
-            no_of_questions += 1;
-            // console.log('add is working')
-            show_ques(no_of_questions);
-        })
+
+    <!-- navbar  navbar navbar -->
+    <label for="menu-control" class="hamburger">
+        
+        <i class="hamburger__icon"></i>
+        <i class="hamburger__icon"></i>
+        <i class="hamburger__icon"></i>
+      </label>
+
+    <input type="checkbox" id="menu-control" class="menu-control">
+
+    <aside class="sidebar">
+
+        <nav class="sidebar__menu" style="position: relative;top: -60px;">
+            <a href="{% url 'home' %}" style="margin-bottom: 30px;">Quizzly</a> {% if request.user.is_authenticated %}
+            <a href="#">
+                <div style="display: flex;flex-direction: column">
+                    <div class='profile_navbar' style="margin-left: -10px;"> </div>
+                    <h2 style="line-height: 17px;
+                    margin-top: 25px;
+                    font-weight: 600;">Hi, {{request.user.first_name}}</h2>
+                </div>
+            </a>
+            <a href="{% url 'dashboard' %}">Dashboard</a> {% endif %}
+            <hr style="width: 222px;
+            position: relative;
+            left: -4vw;
+            margin-top: 10px;margin-bottom: 0px;">
 
 
-        function show_ques(no_of_ques) {
-            form_content = ''
-            var i
-            for (i = 0; i < no_of_ques; i++) {
-                form_content += `<h2>question no ${i+1}</h2> 
-                <butto onclick="delete_ques(this.id)">Delete this </butto>
-                <input type="text" name="problem-{{ques}}">
-                
-                <h3>option A</h3>
-                <input type="text" name="question-{{ques}}-option-1">
-                <h3>option B</h3>
-                <input type="text" name="question-{{ques}}-option-2">
-                <h3>option C</h3>
-                <input type="text" name="question-{{ques}}-option-3">
-                <h3>option D</h3>
-                <input type="text" name="question-{{ques}}-option-4">
-                <h3>option E</h3>
-                <input type="text" name="question-{{ques}}-option-5" value="Can ignore this">
-                <h3>correct answer (write A,B,C,D)</h3>
-                A<input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="A" style="margin-right: 50px;" /> B
-                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="B" style="margin-right: 50px;" /> C
-                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="C" style="margin-right: 50px;" /> D
-                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="D" style="margin-right: 50px;" /> E
-                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="E" style="margin-right: 50px;" />
-                
-                <br>`
+            <a href="{% url 'create_quiz' %}">Create a Quiz</a>
+            <a href="">LeaderBoard</a>
+            <a href="">Forums</a> {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a> {% else %}
+            <a href="{% url 'login' %}">Login</a> {% endif %} {% if not request.user.is_authenticated %}
+            <a href="{% url 'register' %}">Register</a> {% endif %}
+        </nav>
 
-                form.innerHTML = form_content;
-            }
-        }
+        <label for="menu-control" class="sidebar__close"></label>
 
 
-        function delete_ques(index) {
-            console.log(index)
-
-        }
-
-
+    </aside>
 
 
 
-        submit_but.addEventListener('click', () => {
-            form.submit()
-        })
-    </script>
 
 
+    <!-- navbar  navbar navbar -->
+
+    {% comment %} carousal fading one carousal fading one carousal fadin one {% endcomment %}
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" style="z-index: -10;">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="height:200px;overflow: hidden;">
+                <img src="{% static 'img/header-1.png' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" style="height:200px;overflow: hidden;">
+                <img src="{% static 'img/header-2.png' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" style="height:200px;overflow: hidden;">
+                <img src="{% static 'img/header-3.jpg' %}" class="d-block w-100" alt="..." style='top:-50px'>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+    </div>
+
+
+    {% include 'includes/messages.html' %} {% comment %} carousal fading one end {% endcomment %}
+
+
+    <!-- Content Here______ COntent Here _______Content Here ______ -->
+
+    {% block content %} {% endblock content %}
+
+    <!-- Content Here______ COntent Here _______Content Here ______ -->
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+
+
+    <script src="../static/js/app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-- custom JS   custom JS -->
+
+    {% block custom_js %}{% endblock custom_js %}
+
+    <!-- custom JS   custom JS -->
 </body>
 
 </html>

@@ -1,0 +1,6 @@
+what next
+
+1. add tags/created by to quiz class
+2. setup timing for a quiz
+3. setup statistics for a quiz
+4. edit templates(mostly all)

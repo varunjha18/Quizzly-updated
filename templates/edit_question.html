@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+
+<!-- custom_css______custom_css_______custom_css -->
+
+
+{% block custom_css %}{% endblock custom_css %}
+
+
+
+
+
+<!-- content____content____content____content -->
+
+
+{% block content %}
+<form action="{% url 'edit_question' question.quiz_id  question.question_no %}" method="POST">
+{% csrf_token %}
+<input type="text" name='problem' value="{{question.problem}}">
+<button>Submit</button>
+</form>
+ {% endblock content %}
+<!-- jhvjhvjfkjb -->
+
+{% block custom_js %} {% endblock custom_js %}
