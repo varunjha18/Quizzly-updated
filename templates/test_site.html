@@ -1,139 +1,118 @@
-{% load static %}
+{% extends 'base.html' %} {% block custom_css %}
 
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
-
-    <!-- Apply your custom CSS in this block -->
-
-    {% block custom_css %}{% endblock custom_css %}
-    <!-- Apply your custom CSS in this block -->
-
-
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-
-    <title>Quizzly</title>
-</head>
-
-
-
-<body style='background: linear-gradient(to right, black, rgb(20, 20, 20));color: white;'>
-
-
-
-
-
-
-    <!-- navbar  navbar navbar -->
-    <label for="menu-control" class="hamburger">
-        
-        <i class="hamburger__icon"></i>
-        <i class="hamburger__icon"></i>
-        <i class="hamburger__icon"></i>
-      </label>
-
-    <input type="checkbox" id="menu-control" class="menu-control">
-
-    <aside class="sidebar">
-
-        <nav class="sidebar__menu" style="position: relative;top: -60px;">
-            <a href="{% url 'home' %}" style="margin-bottom: 30px;">Quizzly</a> {% if request.user.is_authenticated %}
-            <a href="#">
-                <div style="display: flex;flex-direction: column">
-                    <div class='profile_navbar' style="margin-left: -10px;"> </div>
-                    <h2 style="line-height: 17px;
-                    margin-top: 25px;
-                    font-weight: 600;">Hi, {{request.user.first_name}}</h2>
-                </div>
-            </a>
-            <a href="{% url 'dashboard' %}">Dashboard</a> {% endif %}
-            <hr style="width: 222px;
-            position: relative;
-            left: -4vw;
-            margin-top: 10px;margin-bottom: 0px;">
-
-
-            <a href="{% url 'create_quiz' %}">Create a Quiz</a>
-            <a href="">LeaderBoard</a>
-            <a href="">Forums</a> {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}">Logout</a> {% else %}
-            <a href="{% url 'login' %}">Login</a> {% endif %} {% if not request.user.is_authenticated %}
-            <a href="{% url 'register' %}">Register</a> {% endif %}
-        </nav>
-
-        <label for="menu-control" class="sidebar__close"></label>
-
-
-    </aside>
-
-
-
-
-
-    <!-- navbar  navbar navbar -->
-
-    {% comment %} carousal fading one carousal fading one carousal fadin one {% endcomment %}
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" style="z-index: -10;">
-        <div class="carousel-inner">
-            <div class="carousel-item active" style="height:200px;overflow: hidden;">
-                <img src="{% static 'img/header-1.png' %}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item" style="height:200px;overflow: hidden;">
-                <img src="{% static 'img/header-2.png' %}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item" style="height:200px;overflow: hidden;">
-                <img src="{% static 'img/header-3.jpg' %}" class="d-block w-100" alt="..." style='top:-50px'>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-    </div>
-
-
-    {% include 'includes/messages.html' %} {% comment %} carousal fading one end {% endcomment %}
-
-
-    <!-- Content Here______ COntent Here _______Content Here ______ -->
-
-    {% block content %} {% endblock content %}
-
-    <!-- Content Here______ COntent Here _______Content Here ______ -->
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    -->
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        background-color: #eef0f7;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+    
+    .container {
+        background-color: #fff;
+        width: 600px;
+        height: 450px;
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+        line-height: 1.5;
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.185);
+    }
+    
+    .container::after {
+        content: '';
+        position: absolute;
+        background-image: linear-gradient(to bottom right, #ff9ec4, #ffd07e);
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        z-index: -1;
+    }
+    
+    .container-close {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: #fff;
+        width: 45px;
+        height: 45px;
+        display: grid;
+        place-items: center;
+        font-size: 1.7rem;
+        color: #2e4052;
+        border-radius: 50%;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.164);
+        cursor: pointer;
+    }
+    
+    .container img {
+        width: 250px;
+        height: 400px;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .container-text {
+        padding: 10px 40px 10px 10px;
+    }
+    
+    .container-text h2 {
+        font-size: 1.2rem;
+        color: #1a2250;
+    }
+    
+    .container-text p {
+        font-size: 14px;
+        color: #3b4169;
+        margin: 10px 0;
+    }
+    
+    .container-text input,
+    .container-text button {
+        width: 100%;
+        border: none;
+        padding: 14px;
+        border-radius: 3px;
+    }
+    
+    .container-text input {
+        border: 2px solid #daddec;
+        margin: 5px 0 10px;
+        font-size: 1rem;
+        color: #656880;
+    }
+    
+    .container-text button {
+        background-image: linear-gradient(to right, #89caff, #6589ff);
+        display: block;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 5px 20px #89caff 94;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    
+    .container-text button:hover {
+        box-shadow: none;
+    }
+    
+    .container-text span {
+        display: block;
+        text-align: center;
+        margin: 20px 0 0;
+        color: #babdcb;
+        font-size: 12px;
+    }
+</style>
 
 
-    <script src="../static/js/app.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-    <!-- custom JS   custom JS -->
-
-    {% block custom_js %}{% endblock custom_js %}
-
-    <!-- custom JS   custom JS -->
-</body>
-
-</html>
+{% endblock custom_css %} {% block content %} {% endblock content %} {% block custom_js %}{% endblock custom_js %}

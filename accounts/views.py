@@ -112,23 +112,9 @@ def dashboard(request):
 
 
 def test_site(request):
-    if request.method=='POST':
-        print('jhhvwieuckwljkcnlehoi')
-        return redirect('home')
     return render(request,'test_site.html')
 
 
 
 
 
-
-
-
-
-
-
-def room(request, room_name):
-
-    return render(request, 'chat_room.html', {
-        'room_name': room_name
-    })

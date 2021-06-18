@@ -1,34 +1,113 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block custom_css %}
+<style>
+    .container {
+        margin: auto;
+        background: white;
+        padding: 15px 24px;
+        width: 75% !important;
+    }
+    
+    .image_container {
+        display: flex;
+    }
+    
+    .form_content_area {
+        color: black;
+        margin-left: 40px;
+    }
+    
+    #submit_quiz {
+        padding: 5px 20px;
+        background: black;
+        color: white;
+        border: 2px white;
+        font-size: 25px;
+    }
+</style>
 
-<div class="container mx-4 my-5">
-    <span class="text-center" style="color: white;"><h1>Create a new quiz</h1></span>
+{% endblock custom_css %}
+
+<!-- content content content -->
+
+{% block content %}
+
+<div class="container ">
+    <div class="image_container">
+        <img src="../static/img/quiz_start.jpg" style="height: 500px;width: 500px;" alt="">
+
+        <div class="form_content_area">
+            <h1 style="border-bottom: 0px;">Create Your Quiz</h1>
+            <hr>
+
+            <!-- <h3>Quiz Id: {{new_quiz_id}}</h3> -->
+
+            <form id='create_quiz_form' class="form_content" action="{% url 'create_quiz' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="quiz_id" value="{{new_quiz_id}}">
 
 
-    <h3>Quiz Id: {{new_quiz_id}}</h3>
-    <form action="{% url 'create_quiz' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="hidden" name="quiz_id" value="{{new_quiz_id}}">
+                <h5 style="margin-bottom: 0px;margin-top: -10px;">Add Title</h5>
+                <input type="text" name="quiz_title" id="quiz_title" style="margin-bottom: 10px;width: -webkit-fill-available;"><br>
 
-        <h3>Add Quiz title</h3>
-        <input type="text" name="quiz_title">
+                <h5 style="margin-bottom: 0px;">Add Sub-Heading (Optional)</h5>
+                <input type="text" name="quiz_sub_heading" style="margin-bottom: 10px;width: -webkit-fill-available;"><br>
 
-        <h3>Add a cover image</h3>
-        <input type="file" name='cover_img'>
+                <h5 style="margin-bottom: 0px;">Add a cover image</h5>
+                <input type="file" name='cover_img' style="margin-bottom: 10px;width: -webkit-fill-available;"><br>
 
-        <h3>enter number of questions</h3>
-        <input type="text" name='no_of_ques'>
-
-        <br>
-        <br>
-        <br>
-        <input type="submit" value="Submit Quiz">
+                <h5 style="margin-bottom: 0px;">No of Questions (can be changed later)</h5>
+                <input type="text" name='no_of_ques' id='no_of_ques' style="margin-bottom: 10px;width: -webkit-fill-available;">
 
 
+                <h5 style="margin-bottom: 0px;">Instructions (optional)</h5>
+                <input type="text" name='no_of_ques' style="margin-bottom: 10px;width: -webkit-fill-available;
+                height: 60px;">
 
-    </form>
+
+                <div id="alert_message">
+                    <!-- <p style="color: red;">clicked</p> -->
+
+                    <br>
+
+                </div>
+
+            </form>
+
+            <input type="submit" id="submit_quiz" value="Create Quiz">
 
 
-
-
+        </div>
+    </div>
 </div>
-{% endblock content %}
+{% endblock content %} {% block custom_js %}
+<!-- <p style="color: red;">clicked</p> -->
+<script>
+    submit_button = document.getElementById('submit_quiz')
+    message_area = document.getElementById('alert_message')
+    quiz_title = document.getElementById('quiz_title')
+    no_of_ques = document.getElementById('no_of_ques')
+    quiz_form = document.getElementById('create_quiz_form')
+
+
+    submit_button.addEventListener('click', () => {
+            if (quiz_title.value != '') {
+                // console.log(quiz_title.value)
+                if (no_of_ques.value != '') {
+                    quiz_form.submit()
+
+                } else {
+                    message_area.innerHTML = `<p style="color: red;">Please Enter No of Questions</p>`
+
+                }
+            } else {
+                message_area.innerHTML = `<p style="color: red;">Please Enter Quiz Title</p>`
+
+            }
+        })
+        // message_area.innerHTML = `<p style="color: red;">clicked</p>`
+</script>
+
+
+
+
+{% endblock custom_js %}

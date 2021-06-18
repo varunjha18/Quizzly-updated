@@ -2,11 +2,34 @@
 
 <style>
     .col {
-        height: 266px !important;
+        height: 326px !important;
+    }
+    
+    .card-head {
+        position: absolute;
+        bottom: -9px;
+        width: 100%;
+        left: 0px;
+        font-size: 30px !important;
+        text-align: left;
+        color: black;
+        background: #ffffffa1;
+        padding: 5px 10px;
     }
 </style>
 
 {% endblock custom_css %} {% block content %}
+
+
+<!-- carousal___carousal_____carousal--------carousal--------carousal-------carousal -->
+
+
+
+
+<!-- carousal___carousal_____carousal--------carousal--------carousal-------carousal -->
+
+
+
 <div class="container text-center">
 
     <h1 class="quizzly heading my-3">Welcome to the quizzly app</h1>
@@ -38,12 +61,12 @@
             {% for quiz in all_quizzes %}
             <div class="col">
                 {% if quiz.cover_img.url is not none %}
-                <a href="{% url 'start_quiz' quiz.id %}" class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('{{quiz.cover_img.url}}');background-size: cover;background-position: center;text-decoration:none;">
+                <a href="{% url 'start_quiz' quiz.id %}" class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('{{quiz.cover_img.url}}');background-size: cover;background-position: center;text-decoration:none;border-radius: 20px;">
             {% else %}
-                <a href="{% url 'start_quiz' quiz.id %}" class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background:yellow;background-size: cover;background-position: center;text-decoration:none;">
+                <a href="{% url 'start_quiz' quiz.id %}" class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background:yellow;background-size: cover;background-position: center;text-decoration:none;border-radius: 20px;">
             {% endif %}
                     <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold" style="background:rgb(0,0,0,0.5)">{{quiz.quiz_id}} {{quiz.quiz_title}}</h2>
+                        <h2 class="card-head display-6 lh-1 fw-bold">{{quiz.quiz_title}}</h2>
                         
                     </div>
                 </a>
