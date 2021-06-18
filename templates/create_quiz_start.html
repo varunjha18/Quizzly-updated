@@ -1,5 +1,26 @@
 {% extends 'base.html' %} {% block custom_css %}
 <style>
+    @media screen and (max-width: 580px) {
+        .image_container {
+            flex-direction: column;
+        }
+        .random_form_image {
+            height: 100px;
+            width: 65vw;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+        .form_content_area {
+            margin-left: 0px;
+            color: black;
+        }
+        #submit_quiz {
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+        }
+    }
+    
     .container {
         margin: auto;
         background: white;
@@ -11,17 +32,23 @@
         display: flex;
     }
     
-    .form_content_area {
-        color: black;
-        margin-left: 40px;
-    }
-    
     #submit_quiz {
         padding: 5px 20px;
         background: black;
         color: white;
         border: 2px white;
         font-size: 25px;
+    }
+    
+    @media screen and (min-width: 580px) {
+        .random_form_image {
+            height: 500px;
+            width: 500px;
+        }
+        .form_content_area {
+            color: black;
+            margin-left: 40px;
+        }
     }
 </style>
 
@@ -33,7 +60,7 @@
 
 <div class="container ">
     <div class="image_container">
-        <img src="../static/img/quiz_start.jpg" style="height: 500px;width: 500px;" alt="">
+        <img src="../static/img/quiz_start.jpg" class='random_form_image' alt="">
 
         <div class="form_content_area">
             <h1 style="border-bottom: 0px;">Create Your Quiz</h1>
@@ -60,8 +87,8 @@
 
 
                 <h5 style="margin-bottom: 0px;">Instructions (optional)</h5>
-                <input type="text" name='no_of_ques' style="margin-bottom: 10px;width: -webkit-fill-available;
-                height: 60px;">
+                <textarea rows="3" type="text" name='instructions' style="margin-bottom: 10px;width: -webkit-fill-available;
+                height: 60px;"></textarea>
 
 
                 <div id="alert_message">
@@ -79,7 +106,8 @@
         </div>
     </div>
 </div>
-{% endblock content %} {% block custom_js %}
+
+<br><br><br> {% endblock content %} {% block custom_js %}
 <!-- <p style="color: red;">clicked</p> -->
 <script>
     submit_button = document.getElementById('submit_quiz')

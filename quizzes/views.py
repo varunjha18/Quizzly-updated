@@ -76,30 +76,23 @@ def question(request,quiz_id):
 @login_required(login_url='login')
 def create_quiz(request):
     new_quiz_id=max(Quiz.objects.values_list('id',flat=True))+1
+    print(new_quiz_id,'nnnnneeeewwwww_____qqqquuuuiiiiizzzzzz_____iiiiiidddd')
     if request.method=="POST":
-        # form=quizform(data=request.POST,files=request.FILES)
-        # print(form)
-        # if form.is_valid():
-        #     form.save()
-        #     obj=form.instance
-        #     print(obj)
-        #     print('wwwwwwwwwwoooooooooooorrrrrrrrrrrrrrkkkkkkkkkkkkkkkkk')
-        #     return render(request,"create_questions.html",{"obj":obj})
-        # print('rbbbbbbbbbbbb')
-        
-        
+              
         quiz_title=request.POST.get('quiz_title')
+        quiz_sub_heading=request.POST.get('quiz_sub_heading')
         cover_img=request.FILES.get('cover_img')
-        no_of_ques=request.POST.get('no_of_ques')
-        print(cover_img,'wevwrvwefwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+        no_of_ques=int(request.POST.get('no_of_ques'))
+        instructions=(request.POST.get('instructions'))
+        print(no_of_ques,quiz_title,'wevwrvwefwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
         # print(Quiz.objects.values_list('id',flat=True))
         if cover_img==None:
             cover_img='../media/aaaaaaa.jpeg'
-        quiz=Quiz(quiz_id=new_quiz_id,quiz_title=quiz_title,cover_img=cover_img,created_by=request.user.id)
+        quiz=Quiz(quiz_id=new_quiz_id,quiz_title=quiz_title,cover_img=cover_img,created_by=request.user.id,instructions=instructions,quiz_sub_heading=quiz_sub_heading)
 
         quiz.save()
         # data={'no_of_ques' : range(int(no_of_ques)) }
-        return redirect('create_questions',new_quiz_id,int(no_of_ques))
+        return redirect('create_questions',new_quiz_id,no_of_ques)
 
     return render(request,'create_quiz_start.html',{'new_quiz_id':new_quiz_id})
 
