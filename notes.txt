@@ -1,0 +1,23 @@
+quiz model should also have
+1. created by-  user_id of creator
+2. sub-heading
+3. Specific Instructions
+4. do you want to enable negative marking
+5. total time for the quiz
+6. total no_of people who gave the quiz
+7. avg % of marks %
+
+
+
+both the question model should have
+1 image per question
+
+
+short answer question model
+for now let us keep MCQ only
+
+
+
+
+quiz_start page should
+1 list down general instructions- total time, total marks, negative marking

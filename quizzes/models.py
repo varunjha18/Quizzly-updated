@@ -37,10 +37,11 @@ class Question(models.Model):
 class Quiz(models.Model):
     quiz_id=models.IntegerField()
     quiz_title=models.CharField(max_length=200)
+    quiz_sub_heading=models.CharField(max_length=200)
     cover_img=models.ImageField(upload_to="photos/%y/%m/",default='aaaaaaa.jpeg')
     created_by=models.IntegerField(default=1)
     is_public=models.BooleanField(default=True)
-
+    # instructions
 
 
 

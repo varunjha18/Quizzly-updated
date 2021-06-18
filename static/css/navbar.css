@@ -139,7 +139,7 @@ body {
 .sidebar__menu a:hover {
     /* transform: translatex(0); */
     /* opacity: 1; */
-    color: rgb(1, 75, 75) !important;
+    color: rgb(223, 74, 5) !important;
     font-weight: 600;
 }
 
@@ -209,7 +209,7 @@ body {
 }
 
 .profile_navbar {
-    background-image: url('../img/aaaaaaa.jpeg');
+    /* background-image: url('../img/aaaaaaa.jpeg'); */
     width: 110px;
     height: 110px;
     border-radius: 50%;

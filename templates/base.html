@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 
     <title>Quizzly</title>
+    <style>
+        .profile_navbar {}
+    </style>
 </head>
 
 
@@ -48,7 +51,7 @@
             <a href="{% url 'home' %}" style="margin-bottom: 30px;">Quizzly</a> {% if request.user.is_authenticated %}
             <a href="#">
                 <div style="display: flex;flex-direction: column">
-                    <div class='profile_navbar' style="margin-left: -10px;"> </div>
+                    <div class='profile_navbar' style="margin-left: -10px;background-image: url({{user_profile.profile_img.url}});"> </div>
                     <h2 style="line-height: 17px;
                     margin-top: 25px;
                     font-weight: 600;transition-delay: 0.25s;">Hi, {{request.user.first_name}}</h2>
@@ -81,10 +84,18 @@
     <!-- navbar  navbar navbar -->
 
     {% comment %} carousal fading one carousal fading one carousal fadin one {% endcomment %}
-    
+
+    <div class="container">
+        <div class="carousal"></div>
+    </div>
 
 
-    {% include 'includes/messages.html' %} {% comment %} carousal fading one end {% endcomment %}
+
+
+
+
+
+    {% comment %} carousal fading one carousal fading one carousal fadin one {% endcomment %} {% include 'includes/messages.html' %} {% comment %} carousal fading one end {% endcomment %}
 
 
     <!-- Content Here______ COntent Here _______Content Here ______ -->
