@@ -5,33 +5,89 @@
     .right {
         margin-left: 100px;
     }
+    
+    #chat-text {
+        right: -20%;
+        width: 82%;
+        position: relative;
+    }
+    
+    #side_panel {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background: black;
+        z-index: -100;
+        height: 100%;
+        width: 20%;
+        border-right: 1px solid white;
+    }
+    
+    #message_input {
+        position: fixed;
+        bottom: 0px;
+        width: 80%;
+        right: 0px;
+        z-index: 100;
+        border-top: 1px solid white;
+        background: black;
+        padding: 20px;
+    }
+    
+    .form_group_input {
+        display: flex;
+    }
+    
+    .form_control_input {
+        width: 370%;
+        margin: 10px 30px;
+        min-height: 45px;
+        border-radius: 10px;
+        border: none;
+    }
+    
+    #submit {
+        height: 45px;
+        margin: 10px 0px;
+    }
 </style>
 
 {% endblock custom_css %} {% block content %} {% comment %} div.siderbar {% endcomment %}
 
 
 <div class="container">
-    <div class="row d-flex justify-content-center">
-        <div class="col-6">
-            <!-- <form> -->
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1" class="h4 pt-5">Forum</label>
-                <div class="form-control" id="chat-text" rows="10"></div><br>
-            </div>
+    <div id="side_panel">
 
-            <div class="footer">
-                <div class="form-group">
-                    <input class="form-control" id="input" type="text"></br>
-                </div>
-                <input class="btn btn-secondary btn-lg btn-block" id="submit" type="button" value="Send">
-            </div>
+    </div>
 
 
 
 
-            <!-- </form> -->
+    <!-- <form> -->
+
+
+    <div class="" id="chat-text">
+        {% for mess in room_messages %} {% if request.user.id == mess.sender_id %}
+        <p align='right'><b class='sent_by_me' style='color:green'>{{mess.sender_name}}</b> : {{mess.content}} </p>
+        {% else %}
+        <p><b style='color:red'>{{mess.sender_name}}</b> : {{mess.content}} </p>
+        {% endif %} {% endfor %}
+    </div><br>
+
+
+    <div class="footer" id="message_input">
+        <div class="form_group_input">
+            <input class="form_control_input" id="input" type="text">
+            <input class="btn btn-secondary btn-lg btn-block" id="submit" type="button" value="Send">
         </div>
     </div>
+
+
+
+
+    <!-- </form> -->
+
+
 </div>
 
 {{ request.user.id|json_script:"user_id" }} {{ request.user.first_name|json_script:"user_username" }} {{ room_name|json_script:"room-name" }}
@@ -77,9 +133,9 @@
         const name = data.username
 
         if (user_id == data.user_id) {
-            document.querySelector('#chat-text').innerHTML += `<p align='right'><b class='sent_by_me' style='color:green'>${name}</b> : ${data.message}  ${user_id} </p><br>`
+            document.querySelector('#chat-text').innerHTML += `<p align='right'><b class='sent_by_me' style='color:green'>${name}</b> : ${data.message} </p><br>`
         } else {
-            document.querySelector('#chat-text').innerHTML += `<p><b style='color:red'>${name}</b> : ${data.message}  ${user_id} </p><br>`
+            document.querySelector('#chat-text').innerHTML += `<p><b style='color:red'>${name}</b> : ${data.message} </p><br>`
         }
 
     }
