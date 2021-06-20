@@ -1,14 +1,202 @@
-{% extends 'base.html' %} {% block content %}
-
-<div class="container text-center my-4">
+{% extends 'base.html' %}
 
 
-    <h1 style="color:white">{{quiz_start.quiz_title}}</h1>
-    <img src="{{quiz_start.cover_img.url}}" alt="" style="height: 300px;"><br>
+<!-- css  csss ccsss -->
 
-    <a href="{% url 'question' quiz_start.id %}" class="my-2"><button>Start Quiz</button></a>
-    <a href="{% url 'leaderboard' quiz_start.id %}" class="my-2"><button>Leaderboard</button></a>
-    <a href="{% url 'room' quiz_start.id %}" class="my-2"><button>Forum</button></a>
+{% block custom_css %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+    #image_buttons {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #cover_img {
+        width: 250px;
+        height: 300px;
+        border: 2px solid white;
+        background-image: url('{{quiz_start.cover_img.url}}');
+        background-position: center;
+        background-size: cover;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .instructions {
+        border: 1px solid;
+        height: 300px;
+        margin-left: 40px;
+        width: 71%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+    
+    a {
+        font-weight: 600;
+        font-family: 'Raleway', sans-serif;
+        text-decoration: none !important;
+        position: relative;
+        display: flex;
+        padding: 15px 30px;
+        margin: 40px 0;
+        color: #03e9f4;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: 0.5s;
+        letter-spacing: 4px;
+        overflow: hidden;
+        margin-right: 50px;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    a:hover {
+        background: #03e9f4;
+        color: #050801;
+        box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 200px #03e9f4;
+        /* -webkit-box-reflect: below 1px linear-gradient(transparent, #0005); */
+    }
+    
+    a:nth-child(1) {
+        filter: hue-rotate(270deg);
+    }
+    
+    a:nth-child(2) {
+        filter: hue-rotate(110deg);
+    }
+    
+    a span {
+        position: absolute;
+        display: block;
+    }
+    
+    a span:nth-child(1) {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #03e9f4);
+        animation: animate1 1s linear infinite;
+    }
+    
+    @keyframes animate1 {
+        0% {
+            left: -100%;
+        }
+        50%,
+        100% {
+            left: 100%;
+        }
+    }
+    
+    a span:nth-child(2) {
+        top: -100%;
+        right: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(180deg, transparent, #03e9f4);
+        animation: animate2 1s linear infinite;
+        animation-delay: 0.25s;
+    }
+    
+    @keyframes animate2 {
+        0% {
+            top: -100%;
+        }
+        50%,
+        100% {
+            top: 100%;
+        }
+    }
+    
+    a span:nth-child(3) {
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(270deg, transparent, #03e9f4);
+        animation: animate3 1s linear infinite;
+        animation-delay: 0.50s;
+    }
+    
+    @keyframes animate3 {
+        0% {
+            right: -100%;
+        }
+        50%,
+        100% {
+            right: 100%;
+        }
+    }
+    
+    a span:nth-child(4) {
+        bottom: -100%;
+        left: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(360deg, transparent, #03e9f4);
+        animation: animate4 1s linear infinite;
+        animation-delay: 0.75s;
+    }
+    
+    @keyframes animate4 {
+        0% {
+            bottom: -100%;
+        }
+        50%,
+        100% {
+            bottom: 100%;
+        }
+    }
+</style>
+
+{% endblock custom_css %}
+
+
+<!-- CSS cSS -->
+
+
+{% block content %}
+
+<h1 style="color:white" align='center'>{{quiz_start.quiz_title}}</h1>
+<div class="container my-4">
+
+
+    <div class="image_buttons">
+
+        <div id="cover_img"></div><br>
+
+        <a href="{% url 'question' quiz_start.id %}" class="my-2"><span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Start Quiz</a>
+    </div>
+
+    <div class="instructions text-left">
+        <h2>Instructions</h2><br>
+        <h4>The quiz consists of nnnnnn no of question</h3>
+            <h4>Maximum marks: nnnnnn</h4>
+            <h4>Duration of the quiz: {{quiz_start.time_alloted}} mins</h4>
+            <div class="instruction_buttons" style="display: flex;flex-direction: row;">
+
+                <a href="{% url 'room2' quiz_start.id %}" class="my-2" style="width: 150px;margin-right: 20px;"><span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Forum</a>
+                <a href="{% url 'leaderboard' quiz_start.id %}" class="my-2" style="width: 220px;"><span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Leaderboard</a>
+            </div>
+    </div>
 </div>
 
 

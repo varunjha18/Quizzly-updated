@@ -111,12 +111,11 @@ def create_questions(request,quiz_id,no_of_ques):
                 option_2=request.POST.get('question-'+str(j+1)+'-option-2')
                 option_3=request.POST.get('question-'+str(j+1)+'-option-3')
                 option_4=request.POST.get('question-'+str(j+1)+'-option-4')
-                option_5=request.POST.get('question-'+str(j+1)+'-option-5')
                 correct_ans=request.POST.get('question-'+str(j+1)+'-correct')
                 print('gjwvfjkbkjbijkjkbwfewev')
             # print(problem,question_no,option_1,option_2,option_3,option_4,option_5,correct_ans)
 
-                question=Question(quiz_id=quiz_id,problem=problem,question_no=question_no,option_1=option_1,option_2=option_2,option_3=option_3,option_4=option_4,option_5=option_5,correct_answer=correct_ans)
+                question=Question(quiz_id=quiz_id,problem=problem,question_no=question_no,option_1=option_1,option_2=option_2,option_3=option_3,option_4=option_4,correct_answer=correct_ans)
 
                 question.save()
 
