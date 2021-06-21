@@ -13,7 +13,7 @@
             width: 88%;
         }
         .write_questions {
-            height: 460px;
+            height: 519px;
             width: 22vw;
             margin: auto;
             margin-left: 10px;
@@ -30,16 +30,55 @@
             width: 21.5vw;
             margin-right: 47px;
         }
+        input[type='radio'] {
+            display: none;
+        }
+        .form_field label {
+            padding: 0px 30px;
+            color: black;
+            font-size: 25px;
+            margin-right: 20px;
+            border: 1px solid black;
+            font-weight: 600;
+        }
+        input[type='radio']:checked+label {
+            background: black;
+            color: white;
+        }
+    }
+    
+    button {
+        padding: 4px 15px;
+        background: white;
+        color: black;
+        border: none;
+        font-size: 20px;
+        font-weight: 600;
     }
     
     @media screen and (max-width: 580px) {}
 </style>
 {% endblock custom_css %} {% block content %}
 
-<h1>You will be adding {{no_of_ques}} questions</h1>
+<div class="text-center">
 
+    <h4>You have chose to add {{number}} questions</h1>
+        <h4>Not the correct no of questions?</h4>
+        <br>
+        <form action="{% url 'create_questions' quiz_id  number %}" method="GET">
+            <input type="hidden" name='action' value="new_no_ques">
+            <input type="text" name='new_no_ques'>
+            <button type="submit">Change</button></form>
+</div>
 
-
+<br><br><br>
+<div class="container">
+    <h3>Instructions:</h3>
+    <h6>- &nbsp If you leave a question blank it won't get registered </h6>
+    <h6>- &nbsp You have to provide atleast two options (A and B) the other two if not specified would take default values as None and Both</h6>
+    <h6>- &nbsp The correct answer is set to option A by default make sure you mark it accordingly</h6>
+</div>
+<br>
 
 
 
@@ -53,50 +92,57 @@
             <div class="form_field">
 
                 <div style="display: flex; flex-direction: column;margin-bottom: 20px;margin-top: 30px;">
-                    <h2>Write a Question</h2>
-                    <input type="text" name="problem-{{ques}}" style="width: auto;">
+                    <h2>Write Question {{ques}}</h2>
+                    <textarea rows="3" type="text" name="problem-{{ques}}" style="width: auto;"></textarea>
                 </div>
                 <div style="display: flex; flex-direction: column;margin-bottom: 20px;margin-top: 30px;">
-                    <h3>Want to add an image?</h2>
-                        <input type="file" name="image-{{ques}}" style="width: auto;">
+                    <h4>Want to add an image?</h4>
+                    <input type="file" name="image-{{ques}}" style="width: auto;">
                 </div>
                 <div class="combine_divs" style="display: flex;flex-direction: row;">
                     <div style="display: flex; flex-direction: column;">
-                        <h3>option A</h3>
+                        <h3>Option A</h3>
                         <input type="text" name="question-{{ques}}-option-1" class="ques_options">
                     </div>
                     <div style="display: flex; flex-direction: column;">
-                        <h3>option B</h3>
+                        <h3>Option B</h3>
                         <input type="text" name="question-{{ques}}-option-2" class="ques_options">
                     </div>
                 </div>
                 <div class="combine_divs" style="display: flex;flex-direction: row;margin-bottom: 30px;">
                     <div style="display: flex; flex-direction: column;">
-                        <h3>option C</h3>
+                        <h3>Option C</h3>
                         <input type="text" name="question-{{ques}}-option-3" class="ques_options">
                     </div>
                     <div style="display: flex; flex-direction: column;">
-                        <h3>option D</h3>
+                        <h3>Option D</h3>
                         <input type="text" name="question-{{ques}}-option-4" class="ques_options">
                     </div>
                 </div>
                 <!-- <div style="display: flex; flex-direction: column;"> -->
                 <h3>Correct answer</h3>
-                A<input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="A" style="margin-right: 50px;" /> B
-                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="B" style="margin-right: 50px;" /> C
-                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="C" style="margin-right: 50px;" /> D
-                <input type="radio" name="question-{{ques}}-correct" id="question-1-answers-A" value="D" style="margin-right: 50px;" />
+                <input checked type="radio" name="question-{{ques}}-correct" value="A" id='{{ques}}_option_A' style="margin-right: 50px;" />
+                <label for="{{ques}}_option_A">A</label>
+                <input type="radio" name="question-{{ques}}-correct" value="B" id='{{ques}}_option_B' style="margin-right: 50px;" />
+                <label for="{{ques}}_option_B">B</label>
+                <input type="radio" name="question-{{ques}}-correct" value="C" id='{{ques}}_option_C' style="margin-right: 50px;" />
+                <label for="{{ques}}_option_C">C</label>
+                <input type="radio" name="question-{{ques}}-correct" value="D" id='{{ques}}_option_D' style="margin-right: 50px;" />
+                <label for="{{ques}}_option_D">D</label>
+                <br><br>
                 <!-- </div> -->
             </div>
             <br>
             <br>
         </div>
         {% endfor %}
+        <br>
+        <div class="text-center">
 
-
-        <button type="submit">Create quiz</button>
+            <button type="submit" style="font-size: 30px;padding: 10px 30px;">Create quiz</button>
+        </div>
     </form>
-
+    <br><br><br><br>
 
 
 </div>

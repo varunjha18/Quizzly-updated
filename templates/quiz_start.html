@@ -37,6 +37,7 @@
     }
     
     a {
+        border: 1px solid;
         font-weight: 600;
         font-family: 'Raleway', sans-serif;
         text-decoration: none !important;
@@ -180,22 +181,22 @@
 
     <div class="instructions text-left">
         <h2>Instructions</h2><br>
-        <h4>The quiz consists of nnnnnn no of question</h3>
-            <h4>Maximum marks: nnnnnn</h4>
-            <h4>Duration of the quiz: {{quiz_start.time_alloted}} mins</h4>
-            <div class="instruction_buttons" style="display: flex;flex-direction: row;">
+        <h4>The quiz consists of nnnnnn no of question</h4>
+        <h4>Maximum marks: nnnnnn</h4>
+        <h4>Duration of the quiz: {{quiz_start.time_alloted}} mins</h4>
+        <div class="instruction_buttons" style="display: flex;flex-direction: row;">
 
-                <a href="{% url 'room2' quiz_start.id %}" class="my-2" style="width: 150px;margin-right: 20px;"><span></span>
+            <a href="{% url 'room2' quiz_start.id %}" class="my-2" style="width: 150px;margin-right: 20px;"><span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     Forum</a>
-                <a href="{% url 'leaderboard' quiz_start.id %}" class="my-2" style="width: 220px;"><span></span>
+            <a href="{% url 'leaderboard' quiz_start.id %}" class="my-2" style="width: 220px;"><span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     Leaderboard</a>
-            </div>
+        </div>
     </div>
 </div>
 

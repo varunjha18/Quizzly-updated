@@ -1,38 +1,162 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
 
 
 
-<form action="{% url 'question' quiz_id %}" method="post" id="quiz">
-{% csrf_token %}
-    {% for question in questions %}
-    <div class="container my-4">
-        <h1 class="red">{{question.question_no}} {{question.problem}}</h1>
+<!-- css    css    css    css    css    css    css    css -->
 
-        <div>
-            <input type="radio" name="question-{{question.question_no}}-answers" id="question-1-answers-A" value="A" />
-            <label for="question-1-answers-A"> {{question.option_1}}</label>
+
+{% block custom_css %}
+
+<style>
+    .ques_box {
+        border: 2px solid;
+        padding: 20px 60px !important;
+        border-radius: 20px;
+        min-height: 300px;
+    }
+    
+    input[type='radio'] {
+        display: none;
+    }
+    
+    input[type='radio']:checked+label {
+        /* display: none; */
+        background: white;
+        color: black;
+    }
+    
+    .ques_box label {
+        font-size: 25px;
+        font-weight: 600;
+        padding: 2px 15px;
+        border: 1px solid white;
+        width: 320px;
+        margin-right: 40px;
+    }
+    
+    .options {
+        padding: 5px 0px;
+    }
+    
+    #submit_quiz {
+        padding: 5px 20px;
+        font-size: 32px;
+        margin: 50px;
+        background: white;
+        border: none;
+    }
+    
+    #submit_quiz:hover {
+        background: black;
+        color: white;
+        border: 1px solid white;
+    }
+    
+    .clear_ques {
+        position: relative;
+        bottom: -35px;
+        right: -84.2%;
+        border: 1px solid white;
+        padding: 5px 15px;
+        /* margin-top: 69px; */
+        font-size: 20px;
+    }
+    
+    .clear_ques:hover {
+        color: black;
+        background: white;
+        border: none;
+    }
+</style>
+
+{% endblock custom_css %}
+
+<!-- css   css    css  css    css    css    css    css -->
+
+{% block content %}
+
+<div class="ques_box container my-4" style="width: 66%;min-height: 200px;">
+    <h2>Instructions</h2>
+    <h4>The quiz consists of nnnnnn no of question</h4>
+    <h4>Maximum marks: nnnnnn</h4>
+    <h4>Duration of the quiz: {{quiz_start.time_alloted}} mins</h4>
+
+</div>
+
+<div class="container" style="display: flex;
+justify-content: center;">
+
+    <form action="{% url 'question' quiz_id %}" method="post" id="quiz">
+        {% csrf_token %} {% for question in questions %}
+        <div class="ques_box container my-4">
+            <h1 class="red" style="margin-bottom: 30px;">{{question.question_no}}. {{question.problem}}</h1>
+
+            <div class="options_box" style="display: flex;flex-direction: row;">
+                <div style="flex-direction: column;">
+                    <div class="options">
+                        <input type="radio" name="question-{{question.question_no}}-answers" id="question-{{question.question_no}}-answers-A" value="A" />
+                        <label for="question-{{question.question_no}}-answers-A"><span style="font-weight: 300;">A.</span> &nbsp;&nbsp;{{question.option_1}}</label>
+                    </div>
+
+                    <div class="options">
+                        <input type="radio" name="question-{{question.question_no}}-answers" id="question-{{question.question_no}}-answers-B" value="B" />
+                        <label for="question-{{question.question_no}}-answers-B"><span style="font-weight: 300;">B.</span> &nbsp;&nbsp;{{question.option_2}}</label>
+                    </div>
+                </div>
+
+                <div style="flex-direction: column;">
+
+                    <div class="options">
+                        <input type="radio" name="question-{{question.question_no}}-answers" id="question-{{question.question_no}}-answers-C" value="C" />
+                        <label for="question-{{question.question_no}}-answers-C"><span style="font-weight: 300;">C.</span> &nbsp;&nbsp;{{question.option_3}}</label>
+                    </div>
+
+                    <div class="options">
+                        <input type="radio" name="question-{{question.question_no}}-answers" id="question-{{question.question_no}}-answers-D" value="D" />
+                        <label for="question-{{question.question_no}}-answers-D"><span style="font-weight: 300;">D.</span> &nbsp;&nbsp;{{question.option_4}}</label>
+                    </div>
+                </div>
+            </div>
+            <span id='{{question.question_no}}_clear' class="clear_ques">Clear</span>
         </div>
 
-        <div>
-            <input type="radio" name="question-{{question.question_no}}-answers" id="question-1-answers-B" value="B" />
-            <label for="question-1-answers-B">{{question.option_2}}</label>
-        </div>
+        {% endfor %}
+        <div class="text-center">
 
-        <div>
-            <input type="radio" name="question-{{question.question_no}}-answers" id="question-1-answers-C" value="C" />
-            <label for="question-1-answers-C">{{question.option_3}}</label>
+            <input type="submit" id="submit_quiz" value="Submit Quiz">
         </div>
+    </form>
 
-        <div>
-            <input type="radio" name="question-{{question.question_no}}-answers" id="question-1-answers-D" value="D" />
-            <label for="question-1-answers-D">{{question.option_4}}</label>
-        </div>
+    <div>
+
+        <br><br><br>
     </div>
-
-    {% endfor %}
-    <input type="submit" value="Submit Quiz">
-</form>
-
+</div>
 
 
 {% endblock content %}
+
+
+<!-- js    js    js    js    js    js    js    js    js    js -->
+
+{% block custom_js %}
+<script>
+    clear_buttons = document.querySelectorAll('.clear_ques');
+    // console.log(clear_buttons);
+    clear_buttons.forEach(clear_answer);
+
+
+    function clear_answer(element, index) {
+        element.addEventListener('click', () => {
+            // console.log(document.getElementsByName("question-" + `${index+1}` + "-answers"))
+
+            document.getElementsByName("question-" + `${index+1}` + "-answers").forEach(element => {
+                element.checked = false;
+
+            });
+        })
+    }
+</script>
+{% endblock custom_js %}
+
+<!-- js    js    js    js    js    js    js    js    js    js    js    js -->

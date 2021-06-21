@@ -1,3 +1,4 @@
+from django.db.models.query_utils import Q
 from django.shortcuts import redirect, render
 from quizzes.models import Quiz
 from quizzes.models import Question
@@ -30,36 +31,80 @@ def start_quiz(request,quiz_id):
 
 def question(request,quiz_id):
     questions = Question.objects.filter(quiz_id=quiz_id)
-        
+    # alpha_options=['A','B','C','D']
+    # model_options=['option_1','option_2','option_3','option_4']
     result=[]
     if request.method=="POST":
         score=0
         for i in range(len(questions)):
             # print(request.POST.get('question-'+str(i+1)+'-answers'))
             ans_given=(request.POST.get('question-'+str(i+1)+'-answers'))
+            
+            if ans_given=="A":
+                ans_given_full=questions[i].option_1
+            elif ans_given=='B':
+                ans_given_full=questions[i].option_2
+            elif ans_given=='C':
+                ans_given_full=questions[i].option_3
+            elif ans_given=='D':
+                ans_given_full=questions[i].option_4
+            else:
+                ans_given_full='Not Answered'
+
             right_ans=questions[i].correct_answer
             
+            if ans_given=='B':
+                right_ans_full=questions[i].option_2
+            elif ans_given=='C':
+                right_ans_full=questions[i].option_3
+            elif ans_given=='D':
+                right_ans_full=questions[i].option_4
+            else:
+                right_ans_full=questions[i].option_1
+            
+
+
             if ans_given==None:
-                result.append([-1,questions[i].problem,ans_given,right_ans])
+                result.append([-1,questions[i].problem,ans_given_full,right_ans_full])
             elif str(ans_given)==str(right_ans):
-                result.append([1,questions[i].problem,ans_given,right_ans])
+                result.append([1,questions[i].problem,ans_given_full,right_ans_full])
                 score+=questions[i].points
             else:
-                result.append([0,questions[i].problem,ans_given,right_ans])
+                result.append([0,questions[i].problem,ans_given_full,right_ans_full])
         
         # print(result)
-        res_data={
-            'result':result,
-            "score":score,
-        }
         user_id=request.user.id
         # print(user_id)
         # print('jvhjhhhvjfuyfvjadvaaav')
 
         if user_id is not None:
             user_name=str(request.user.first_name)+' '+str(request.user.last_name)
-            score=Score(user_id=user_id,quiz_id=quiz_id,score=score,user_name=user_name)
-            score.save()
+            previous_high=Score.objects.filter(quiz_id=quiz_id,user_id=user_id)
+            
+            
+
+            print(previous_high,'gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
+            if previous_high.exists():
+                previous_high=previous_high[0]
+                if score>previous_high.score:
+                    previous_high.score=score
+                    previous_high.save()
+            else:
+                new_high=Score(quiz_id=quiz_id,user_id=user_id,score=score,user_name=user_name)
+                new_high.save()
+
+        ranking=Score.objects.values_list('score', flat=True)
+        rank=len(ranking)+1
+        for i in range(len(ranking)):
+            if score>=ranking[i]:
+                rank=i+1
+                break
+
+        res_data={
+            'result':result,
+            "score":score,
+            'rank':rank,
+        }
 
 
         return render(request,"results.html",res_data)
@@ -84,7 +129,7 @@ def create_quiz(request):
         cover_img=request.FILES.get('cover_img')
         no_of_ques=int(request.POST.get('no_of_ques'))
         instructions=(request.POST.get('instructions'))
-        print(no_of_ques,quiz_title,'wevwrvwefwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+        # print(no_of_ques,quiz_title,'wevwrvwefwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
         # print(Quiz.objects.values_list('id',flat=True))
         if cover_img==None:
             cover_img='../media/aaaaaaa.jpeg'
@@ -112,16 +157,19 @@ def create_questions(request,quiz_id,no_of_ques):
                 option_3=request.POST.get('question-'+str(j+1)+'-option-3')
                 option_4=request.POST.get('question-'+str(j+1)+'-option-4')
                 correct_ans=request.POST.get('question-'+str(j+1)+'-correct')
-                print('gjwvfjkbkjbijkjkbwfewev')
+                # print('gjwvfjkbkjbijkjkbwfewev')
             # print(problem,question_no,option_1,option_2,option_3,option_4,option_5,correct_ans)
 
                 question=Question(quiz_id=quiz_id,problem=problem,question_no=question_no,option_1=option_1,option_2=option_2,option_3=option_3,option_4=option_4,correct_answer=correct_ans)
 
                 question.save()
-
+    
         return redirect('home')
 
-
+    if request.method=="GET":
+        if request.GET.get('action') =='new_no_ques':
+            # print('gvjhvqjhkjbjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
+            return redirect('create_questions',quiz_id,request.GET.get('new_no_ques'))
 
     return render(request,'create_questions.html',data)
 
