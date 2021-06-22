@@ -5,7 +5,26 @@
 <!-- custom_css______custom_css_______custom_css -->
 
 
-{% block custom_css %}{% endblock custom_css %}
+{% block custom_css %}
+<style>
+    /* input[type='radio'] {
+        display: none;
+    }
+    
+    .label {
+        padding: 0px 30px;
+        color: black;
+        font-size: 25px;
+        margin-right: 20px;
+        border: 1px solid black;
+        font-weight: 600;
+    }
+    
+    input[type='radio']:checked+label {
+        background: black;
+        color: white;
+    } */
+</style>{% endblock custom_css %}
 
 
 
@@ -15,12 +34,37 @@
 
 
 {% block content %}
-<form action="{% url 'edit_question' question.quiz_id  question.question_no %}" method="POST">
-{% csrf_token %}
-<input type="text" name='problem' value="{{question.problem}}">
-<button>Submit</button>
-</form>
- {% endblock content %}
+<div class="container mx-8 my-3">
+
+    <form action="{% url 'edit_question' question.quiz_id  question.question_no %}" method="POST">
+        {% csrf_token %}
+        <h3>Question</h3> <input type="text" name='problem' value="{{question.problem}}"> <br>
+        <h3>option A</h3><input type="text" name='option_1' value="{{question.option_1}}"><br>
+        <h3>option B</h3><input type="text" name='option_2' value="{{question.option_2}}"><br>
+        <h3>option C</h3><input type="text" name='option_3' value="{{question.option_3}}"><br>
+        <h3>option D</h3><input type="text" name='option_4' value="{{question.option_4}}"><br> {% if question.prob_img_1 %}
+        <img src="{{question.prob_img_1}}" alt="" style="max-width: 500px;">{% endif %}
+        <h3>Change Image</h3> <input type="file" name="prob_img_1">
+
+
+        <br><br>
+
+        <h3>Correct answer</h3>
+        <h4 style='color:green'>{{question.correct_answer}}</h4>
+
+        <input {% if question.correct_answer is "A" %} checked {% endif %} type="radio" name="question-correct" value="A" id='option_A' style="margin-right: 50px;" />
+        <label for="option_A">A</label>
+        <input {% if question.correct_answer is 'B' %}checked{% endif %} type="radio" name="question-correct" value="B" id='option_B' style="margin-right: 50px;" />
+        <label for="option_B">B</label>
+        <input {% if question.correct_answer is 'C' %}checked{% endif %} type="radio" name="question-correct" value="C" id='option_C' style="margin-right: 50px;" />
+        <label for="option_C">C</label>
+        <input {% if question.correct_answer is 'D' %}checked{% endif %} type="radio" name="question-correct" value="D" id='option_D' style="margin-right: 50px;" />
+        <label for="option_D">D</label>
+        <br><br>
+        <button>Submit</button>
+    </form>
+</div>
+{% endblock content %}
 <!-- jhvjhvjfkjb -->
 
 {% block custom_js %} {% endblock custom_js %}

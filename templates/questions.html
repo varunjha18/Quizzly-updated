@@ -53,14 +53,15 @@
     }
     
     .clear_ques {
-        position: relative;
-        bottom: -35px;
-        right: -84.2%;
-        border: 1px solid white;
-        padding: 5px 15px;
-        /* margin-top: 69px; */
-        font-size: 20px;
-    }
+        position: absolute;
+    /* top: 1em; */
+    right: 17.8%;
+    border: 1px solid white;
+    padding: 5px 15px;
+    /* margin-top: 69px; */
+    font-size: 15px;
+    margin-top: 35px;
+}
     
     .clear_ques:hover {
         color: black;
@@ -90,7 +91,9 @@ justify-content: center;">
         {% csrf_token %} {% for question in questions %}
         <div class="ques_box container my-4">
             <h1 class="red" style="margin-bottom: 30px;">{{question.question_no}}. {{question.problem}}</h1>
-
+            {% if question.prob_img_1 %}
+            <img src="{{question.prob_img_1.url}}" alt="" style='max-width:500px;margin-bottom:20px;'>
+            {% endif %}
             <div class="options_box" style="display: flex;flex-direction: row;">
                 <div style="flex-direction: column;">
                     <div class="options">

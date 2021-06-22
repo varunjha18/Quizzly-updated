@@ -83,7 +83,7 @@ def question(request,quiz_id):
             
             
 
-            print(previous_high,'gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
+            # print(previous_high,'ggggggggggggggggggggggggg')
             if previous_high.exists():
                 previous_high=previous_high[0]
                 if score>previous_high.score:
@@ -157,10 +157,11 @@ def create_questions(request,quiz_id,no_of_ques):
                 option_3=request.POST.get('question-'+str(j+1)+'-option-3')
                 option_4=request.POST.get('question-'+str(j+1)+'-option-4')
                 correct_ans=request.POST.get('question-'+str(j+1)+'-correct')
+                prob_img_1=request.FILES.get( 'image-'+str(j+1))
                 # print('gjwvfjkbkjbijkjkbwfewev')
             # print(problem,question_no,option_1,option_2,option_3,option_4,option_5,correct_ans)
 
-                question=Question(quiz_id=quiz_id,problem=problem,question_no=question_no,option_1=option_1,option_2=option_2,option_3=option_3,option_4=option_4,correct_answer=correct_ans)
+                question=Question(quiz_id=quiz_id,problem=problem,question_no=question_no,option_1=option_1,option_2=option_2,option_3=option_3,option_4=option_4,correct_answer=correct_ans,prob_img_1=prob_img_1)
 
                 question.save()
     

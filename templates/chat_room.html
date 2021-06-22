@@ -23,6 +23,7 @@
         height: 100%;
         width: 20%;
         border-right: 1px solid white;
+        padding-left: 10px;
     }
     
     #message_input {
@@ -82,6 +83,21 @@
         padding: 5px 12px;
         border-radius: 10px;
     }
+    
+    @media screen and (max-width: 580px) {
+        #side_panel {
+            display: none;
+        }
+        #message_input {
+            width: 100%;
+        }
+        /* #chat-text {
+            width: 100%;
+        } */
+        .received_message {
+            margin-left: -45px;
+        }
+    }
 </style>
 
 {% endblock custom_css %} {% block content %} {% comment %} div.siderbar {% endcomment %}
@@ -89,7 +105,8 @@
 
 <div class="container">
     <div id="side_panel">
-
+        <br><br><br><br>
+        <h5>Other Active Forums</h5>
     </div>
 
 
