@@ -19,14 +19,14 @@
 
 <div class="container ">
 
-    <h1 class="mx-5" style="font-size: 40px;;width: 45%;margin-top: 15px ;margin-bottom: 30px;">
+    <h1 class="mx-5" style="font-size: 40px;;width: 45%;margin-top: 15px ;margin-bottom: 10px;">
         You Score is {{score}}</h1>
     <h1 class="mx-5" style="font-size: 40px;;width: 45%;margin-top: -15px ;margin-bottom: 40px;">
         You Rank for this quiz is {{rank}}</h1>
 
     {% for res in result %}
 
-    <div class="box mx-5 my-2" style=" {% if res.0 is 0 %} border: 4px solid red{% elif res.0 is 1 %} border: 4px solid green{% else %}border: 4px solid white {% endif %}  ;
+    <div class="box mx-5 my-1" style=" {% if res.0 is 0 %} border: 4px solid red{% elif res.0 is 1 %} border: 4px solid green{% else %}border: 4px solid white {% endif %}  ;
     
     
     

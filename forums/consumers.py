@@ -9,9 +9,9 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         # message_content = event['message']
         # username = event['username']
         # user_id = event['user_id']
-
+        # if user_id== request.user.id:
         save_message=message(forum_name=str(self.room_name),sender_name=str(username),sender_id=int(user_id),content=str(message_content),reply_to=int(0))
-        # print(save_message,'sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss')
+            # print(save_message,'sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss')
         save_message.save()
         return 1
 
@@ -41,6 +41,7 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
 
         
 
+        flag = await database_sync_to_async(self.save_to_db)(message_content,username,user_id)
         await self.channel_layer.group_send(
             
             
@@ -57,7 +58,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         message_content = event['message']
         username = event['username']
         user_id = event['user_id']
-        flag = await database_sync_to_async(self.save_to_db)(message_content,username,user_id)
         # print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
         # save_to_db(event)
         # save_message=message(forum_name=str(self.room_name),sender_name=str(username),sender_id=int(user_id),content=str(message_content),reply_to=int(0))

@@ -5,6 +5,7 @@ class forum(models.Model):
     forum_name=models.CharField(max_length=100)  
     # this would be quiz id , its a number but will be treated as a string 
     forum_code=models.CharField(max_length=100,blank=True)
+    forum_image=models.ImageField(upload_to="photos/%y/%m/",blank=True,default='aaaaaaa.jpeg')
 
 
 

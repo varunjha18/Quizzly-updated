@@ -31,7 +31,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Rank</th>
                 <th scope="col">Name</th>
                 <th scope="col">Score</th>
                 <!-- <th scope="col">Price</th> -->
@@ -39,7 +39,17 @@
             </tr>
         </thead>
         <tbody>
-            {% for score,rank in scores %}
+            {% if this_user_score %}
+            <tr style="color: white;background:rgb(49, 49, 49);font-size: 22px;font-weight: 600;">
+
+                <th scope="row">{{this_user_rank}}</th>
+                <td>{{this_user_score.user_name}}</td>
+                <td>{{this_user_score.score}}</td>
+                {% comment %}
+                <td>$25000</td> {% endcomment %} {% comment %}
+                <td><a href="/cars/{{enquiry.car_id}}" class="btn btn-outline-dark">View Car</a></td> {% endcomment %}
+            </tr>
+            {% endif %} {% for score,rank in scores %}
             <tr style="color: white;">
 
                 <th scope="row">{{rank}}</th>

@@ -19,5 +19,24 @@ def leaderboard(request,quiz_id):
          
     # print(this_quiz_leaderboard.count())
     score_count=this_quiz_leaderboard.count()
-    data={'scores':zip(this_quiz_leaderboard,ranks)}
+    if request.user.is_authenticated:
+        this_user_score=Score.objects.filter(quiz_id=quiz_id,user_id=request.user.id)
+        if this_user_score.exists():
+            user_ranking=Score.objects.values_list('score', flat=True)
+            user_rank=len(user_ranking)+1
+            for i in range(len(user_ranking)):
+                if this_user_score[0].score>=user_ranking[i]:
+                    user_rank=i+1
+                    break
+            
+            data={'scores':zip(this_quiz_leaderboard,ranks),
+                    'this_user_score':this_user_score[0],
+                    'this_user_rank':user_rank,
+            }
+            
+        else:    
+            data={'scores':zip(this_quiz_leaderboard,ranks)}
+    else:
+        data={'scores':zip(this_quiz_leaderboard,ranks)}
+
     return render(request,'leaderboard.html',data)
