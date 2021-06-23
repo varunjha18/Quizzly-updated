@@ -7,9 +7,7 @@ option_choices=(('A','A'),
 ('B','B'),
 ('C','C'),
 ('D','D'),
-('E','E'),
-('F','F'),
-('G','G'))
+)
 # Create your models here.
 class Question(models.Model):
     quiz_id=models.IntegerField(default=id)
@@ -19,7 +17,7 @@ class Question(models.Model):
     option_2=models.CharField(max_length=200)
     option_3=models.CharField(max_length=200,default='Both of these')
     option_4=models.CharField(max_length=200,default='None of these')
-    correct_answer=MultiSelectField(choices=option_choices)
+    correct_answer=models.CharField(max_length=10)
     prob_img_1=models.ImageField(upload_to="photos/%y/%m/",blank=True)
     prob_img_2=models.ImageField(upload_to="photos/%y/%m/",blank=True)
     points=models.IntegerField(default=10)

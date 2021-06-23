@@ -49,17 +49,17 @@
 
         <br><br>
 
-        <h3>Correct answer</h3>
-        <h4 style='color:green'>{{question.correct_answer}}</h4>
+        <!-- <h3>Correct answer</h3>
+        <h4 style='color:green'>{{question.correct_answer}}</h4> -->
 
-        <input {% if question.correct_answer is "A" %} checked {% endif %} type="radio" name="question-correct" value="A" id='option_A' style="margin-right: 50px;" />
         <label for="option_A">A</label>
-        <input {% if question.correct_answer is 'B' %}checked{% endif %} type="radio" name="question-correct" value="B" id='option_B' style="margin-right: 50px;" />
+        <input {% ifequal question.correct_answer "A" %} checked {% endifequal %} type="radio" name="question-correct" value="A" id='option_A' style="margin-right: 50px;" />
         <label for="option_B">B</label>
-        <input {% if question.correct_answer is 'C' %}checked{% endif %} type="radio" name="question-correct" value="C" id='option_C' style="margin-right: 50px;" />
+        <input {% ifequal question.correct_answer 'B' %}checked{% endifequal %} type="radio" name="question-correct" value="B" id='option_B' style="margin-right: 50px;" />
         <label for="option_C">C</label>
-        <input {% if question.correct_answer is 'D' %}checked{% endif %} type="radio" name="question-correct" value="D" id='option_D' style="margin-right: 50px;" />
+        <input {% ifequal question.correct_answer 'C' %}checked{% endifequal %} type="radio" name="question-correct" value="C" id='option_C' style="margin-right: 50px;" />
         <label for="option_D">D</label>
+        <input {% ifequal question.correct_answer 'D' %}checked{% endifequal %} type="radio" name="question-correct" value="D" id='option_D' style="margin-right: 50px;" />
         <br><br>
         <button>Submit</button>
     </form>

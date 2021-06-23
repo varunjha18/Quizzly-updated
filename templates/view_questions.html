@@ -27,12 +27,15 @@
 
                 </td>
                 <td>
-                    <form action="{% url 'view_questions' quiz_id %}" method="POST" id="delete_ques">{% csrf_token %}<input type="hidden" value="delete" name='question_ops'></form><button>Delete</button>
+                    <form action="{% url 'view_questions' quiz_id %}" method="POST" id="delete_ques">{% csrf_token %}<input type="hidden" value="delete" name='question_ops'>
+                        <input type="hidden" name="quiz_id" value="{{ques.quiz_id}}">
+                        <input type="hidden" name="question_no" value="{{ques.question_no}}">
+                        <button>Delete</button></form>
 
                 </td>
-                
-                {% comment %} <td><a href="{% url 'view_questions' quiz_id %}">Edit</a></td> {% endcomment %}
-                 {% comment %}
+
+                {% comment %}
+                <td><a href="{% url 'view_questions' quiz_id %}">Edit</a></td> {% endcomment %} {% comment %}
                 <td><a href="/cars/{{enquiry.car_id}}" class="btn btn-outline-dark">View Car</a></td> {% endcomment %}
             </tr>
             {% endfor %}

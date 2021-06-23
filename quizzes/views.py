@@ -11,8 +11,10 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     all_quizzes=Quiz.objects.all()
     if request.method=='POST':
-        query=request.POST.get('search')
-        all_quizzes=all_quizzes.filter(quiz_title__icontains=query)
+        if request.POST.get('keyword_search'):
+            all_quizzes=all_quizzes.filter(quiz_title__icontains=request.POST.get('keyword_search'))
+        if request.POST.get('code_search'):
+            all_quizzes=all_quizzes.filter(private_key=request.POST.get('code_search'))
 
 
     data={'all_quizzes':all_quizzes}
@@ -53,11 +55,13 @@ def question(request,quiz_id):
 
             right_ans=questions[i].correct_answer
             
-            if ans_given=='B':
+            # print(right_ans,'gfvjhcbwiukbgwiuebwieuff')
+            if right_ans == 'B':
+                # print('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
                 right_ans_full=questions[i].option_2
-            elif ans_given=='C':
+            elif right_ans=='C':
                 right_ans_full=questions[i].option_3
-            elif ans_given=='D':
+            elif right_ans=='D':
                 right_ans_full=questions[i].option_4
             else:
                 right_ans_full=questions[i].option_1
@@ -95,6 +99,10 @@ def question(request,quiz_id):
 
         ranking=Score.objects.values_list('score', flat=True)
         rank=len(ranking)+1
+        if (len(ranking))>0 :
+            if ranking[0]==ranking[(len(ranking))-1]:
+                rank=1
+        
         for i in range(len(ranking)):
             if score>=ranking[i]:
                 rank=i+1
@@ -183,6 +191,12 @@ def create_questions(request,quiz_id,no_of_ques):
 
 
 def view_questions(request,quiz_id):
+    if request.method=='POST':
+        if request.POST.get('question_ops')=='delete':
+            this_question=Question.objects.filter(quiz_id=request.POST.get('quiz_id') ,question_no=request.POST.get('question_no'))
+            if this_question.exists():
+                this_question.delete()
+    
     all_questions=Question.objects.filter(quiz_id=quiz_id)
        
     

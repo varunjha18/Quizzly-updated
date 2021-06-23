@@ -16,6 +16,28 @@
         background: #ffffffa1;
         padding: 5px 10px;
     }
+    
+    #search_form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .submit_button {
+        padding: 5px 15px;
+        font-size: 20px;
+        background: white;
+        color: black;
+        border: 2px solid rgba(255, 255, 255, 0);
+        font-weight: 600;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .submit_button:hover {
+        border: 2px solid white;
+        color: white;
+        background: black;
+    }
 </style>
 
 {% endblock custom_css %} {% block content %}
@@ -47,9 +69,24 @@
 
 
 
-
+    <br><br><br>
     <!-- </div> -->
+    <h2 class="pb-2 border-bottom mx-4" align='center'>Search for a Quiz</h2>
+    <form action="{% url 'home' %}" method="POST">
+{% csrf_token %}
+        <div id="search_form">
 
+            <h4 class="mx-2">Enter a Keyword</h4>
+            <input class="mx-1" type="text" name='keyword_search'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <h4 class="mx-2">Enter a Quiz code</h4>
+            <input class="mx-1" type="text" name="code_search">
+        </div>
+        <button class='submit_button mx-4 my-3' class="mx-2" type="submit"> Get Quizzes </button>
+
+
+
+
+    </form>
 
 
 
